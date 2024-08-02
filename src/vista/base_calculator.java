@@ -4,6 +4,11 @@
  */
 package vista;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author Josafat bk
@@ -14,14 +19,22 @@ public class base_calculator extends javax.swing.JFrame {
     public float primerNumero;
     public float segundoNumero;
     public String operador;
-
+    private File logFile = new File("bitacoraCalculadora.txt");
     /**
      * Creates new form base_calculator
      */
     public base_calculator() {
         initComponents();
     }
-
+    
+    
+    private void logOperation(String operation) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
+            writer.write(operation + "\n");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +72,7 @@ public class base_calculator extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         jMenuItem3.setText("jMenuItem3");
@@ -526,14 +540,34 @@ public class base_calculator extends javax.swing.JFrame {
         jMenu1.setText("Option");
 
         jMenuItem1.setText("New");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("History");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Help");
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Manual Usuario");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCheckBoxMenuItem1);
+
         jMenuBar1.add(jMenu2);
         jMenuBar1.add(jMenu4);
 
@@ -545,41 +579,49 @@ public class base_calculator extends javax.swing.JFrame {
     private void btn_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CActionPerformed
         // TODO add your handling code here: C
           this.lbl_txt.setText("");
+           logOperation("C");
     }//GEN-LAST:event_btn_CActionPerformed
 
     private void btn_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_8ActionPerformed
         // TODO add your handling code here: 8
         this.lbl_txt.setText(this.lbl_txt.getText()+ "8");
+        logOperation("8");
     }//GEN-LAST:event_btn_8ActionPerformed
 
     private void btn_9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_9ActionPerformed
         // TODO add your handling code here: 9
         this.lbl_txt.setText(this.lbl_txt.getText()+ "9");
+        logOperation("9");
     }//GEN-LAST:event_btn_9ActionPerformed
 
     private void btn_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_4ActionPerformed
         // TODO add your handling code here: 4
         this.lbl_txt.setText(this.lbl_txt.getText()+ "4");
+        logOperation("4");
     }//GEN-LAST:event_btn_4ActionPerformed
 
     private void btn_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_7ActionPerformed
         // TODO add your handling code here: 7
         this.lbl_txt.setText(this.lbl_txt.getText()+ "7");
+        logOperation("7");
     }//GEN-LAST:event_btn_7ActionPerformed
 
     private void btn_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_6ActionPerformed
         // TODO add your handling code here: 6
         this.lbl_txt.setText(this.lbl_txt.getText()+ "6");
+        logOperation("6");
     }//GEN-LAST:event_btn_6ActionPerformed
 
     private void btn_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_2ActionPerformed
         // TODO add your handling code here:2
         this.lbl_txt.setText(this.lbl_txt.getText()+ "2");
+        logOperation("2");
     }//GEN-LAST:event_btn_2ActionPerformed
 
     private void btn_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_5ActionPerformed
         // TODO add your handling code here:5
         this.lbl_txt.setText(this.lbl_txt.getText()+ "5");
+        logOperation("5");
     }//GEN-LAST:event_btn_5ActionPerformed
 
     private void btn_porcentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_porcentActionPerformed
@@ -587,28 +629,33 @@ public class base_calculator extends javax.swing.JFrame {
         this.primerNumero = Float.parseFloat(this.lbl_txt.getText());
         this.operador="%";
         this.lbl_txt.setText("");
+        logOperation("%");
     }//GEN-LAST:event_btn_porcentActionPerformed
 
     private void btn_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_1ActionPerformed
         // TODO add your handling code here: 1
         this.lbl_txt.setText(this.lbl_txt.getText()+ "1");
+        logOperation("1");
     }//GEN-LAST:event_btn_1ActionPerformed
 
     private void btn_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_0ActionPerformed
         // TODO add your handling code here: 0
         this.lbl_txt.setText(this.lbl_txt.getText()+ "0");
+        logOperation("0");
     }//GEN-LAST:event_btn_0ActionPerformed
 
     private void btn_thatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thatActionPerformed
         // TODO add your handling code here: .
         if(!(this.lbl_txt.getText().contains("."))){
          this.lbl_txt.setText(this.lbl_txt.getText()+ ".");
+         logOperation(".");
          }
     }//GEN-LAST:event_btn_thatActionPerformed
 
     private void btn_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_3ActionPerformed
         // TODO add your handling code here:3
         this.lbl_txt.setText(this.lbl_txt.getText()+ "3");
+        logOperation("3");
     }//GEN-LAST:event_btn_3ActionPerformed
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
@@ -616,6 +663,7 @@ public class base_calculator extends javax.swing.JFrame {
         this.primerNumero = Float.parseFloat(this.lbl_txt.getText());
         this.operador="+";
         this.lbl_txt.setText("");
+        logOperation("+");
         
     }//GEN-LAST:event_btn_addActionPerformed
 
@@ -628,10 +676,14 @@ public class base_calculator extends javax.swing.JFrame {
             case "-" :this.lbl_txt.setText(Sincero(this.primerNumero-this.segundoNumero)); break;
             case "*" :this.lbl_txt.setText(Sincero(this.primerNumero*this.segundoNumero)); break;
             case "/" :this.lbl_txt.setText(Sincero(this.primerNumero/this.segundoNumero)); break;
-            case "%" :this.lbl_txt.setText(Sincero(this.primerNumero%this.segundoNumero)); 
+            case "%" :this.lbl_txt.setText(Sincero(this.primerNumero%this.segundoNumero)); break;
             
-        };
+        }
         
+         String resultStr = Sincero(result);
+        this.lbl_txt.setText(resultStr);
+        operation += resultStr;
+        logOperation(operation);
     }//GEN-LAST:event_btn_igualActionPerformed
 
     private void btn_subtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_subtraActionPerformed
@@ -639,6 +691,8 @@ public class base_calculator extends javax.swing.JFrame {
         this.primerNumero = Float.parseFloat(this.lbl_txt.getText());
         this.operador="-";
         this.lbl_txt.setText("");
+        logOperation("-");
+        
     }//GEN-LAST:event_btn_subtraActionPerformed
 
     private void btn_multiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_multiActionPerformed
@@ -646,6 +700,7 @@ public class base_calculator extends javax.swing.JFrame {
         this.primerNumero = Float.parseFloat(this.lbl_txt.getText());
         this.operador="*";
         this.lbl_txt.setText("");
+         logOperation("*");
     }//GEN-LAST:event_btn_multiActionPerformed
 
     private void btn_fractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fractionActionPerformed
@@ -653,7 +708,23 @@ public class base_calculator extends javax.swing.JFrame {
         this.primerNumero = Float.parseFloat(this.lbl_txt.getText());
         this.operador="/";
         this.lbl_txt.setText("");
+        logOperation("/");
     }//GEN-LAST:event_btn_fractionActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here: new 
+        JOptionPane.showMessageDialog(this, "Reiniciar calculadora");
+        // Aquí puedes agregar la lógica para reiniciar la calculadora
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here: history
+        JOptionPane.showMessageDialog(this, "Mostrar historial");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        // TODO add your handling code here: manual
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
       public String Sincero(float resultado){
           String retorno="";
@@ -722,6 +793,7 @@ public class base_calculator extends javax.swing.JFrame {
     private javax.swing.JButton btn_rtn;
     private javax.swing.JButton btn_subtra;
     private javax.swing.JButton btn_that;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
